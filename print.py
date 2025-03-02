@@ -1,9 +1,13 @@
 f = open("tbr.txt", "r")
-books = {}
+
+book_list = []
+
 for line in f:
+    books = {}
     line = line.strip("\n")
     name,author,genre = line.split(",")
-    books[author] = [name] if author not in books.keys() else books[author] + [name]
+    books[name] = [author,genre]
+    book_list.append(books)
 
 
-print(books)
+print(book_list)
