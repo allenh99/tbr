@@ -1,5 +1,7 @@
 f = open("tbr.txt", "r")
 
+#TODO: API IMPLEMENTATION
+
 book_list = []
 completed = 0
 
