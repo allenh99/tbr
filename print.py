@@ -1,6 +1,6 @@
 #TODO: API IMPLEMENTATION
-def get_book_list(filename)
-f = open("tbr.txt", "r")
+def get_book_list(filename):
+    f = open("tbr.txt", "r")
     book_list = []
     completed = 0
 
@@ -12,11 +12,11 @@ f = open("tbr.txt", "r")
         books["Author"] = author.lstrip()
         completed += 1 if done.lstrip() == "Y" else 0
         book_list.append(books)
-    return book_list
+    return book_list,completed
 
 
-def print(filename):
-    book_list = get_book_list(filename)
+def print_books(filename):
+    book_list,completed = get_book_list(filename)
     for book in book_list:
         print(book["Title"],"by",book["Author"])
 
