@@ -23,5 +23,14 @@ def print_books(filename):
     print("READ",completed)
     print("TOTAL:",len(book_list))
     print("PROGRESS:", str((completed/len(book_list))*100) + "%")
+    
+def sort_books_alphabet(book_list):
+    #print(book_list)
+    return sorted(book_list,key = lambda i:i['Title'])
+
+#TODO - sort books by completion
 
 #TODO - Integrate book API?
+
+bl,c = get_book_list("tbr.txt")
+print(sort_books_alphabet(bl))
