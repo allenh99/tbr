@@ -23,3 +23,5 @@ def print_books(filename):
     print("READ",completed)
     print("TOTAL:",len(book_list))
     print("PROGRESS:", str((completed/len(book_list))*100) + "%")
+
+#TODO - Integrate book API?
