@@ -11,6 +11,7 @@ def get_book_list(filename):
         books["Title"] =  name.lstrip()
         books["Author"] = author.lstrip()
         completed += 1 if done.lstrip() == "Y" else 0
+        books["Complete"] = True if done.lstrip() == "Y" else 0
         book_list.append(books)
     return book_list,completed
 
@@ -28,7 +29,12 @@ def sort_books_alphabet(book_list):
     #print(book_list)
     return sorted(book_list,key = lambda i:i['Title'])
 
+def get_completed(book_list):
+    return
+
 #TODO - sort books by completion
+def sort_books_completion(book_list):
+    return
 
 #TODO - Integrate book API?
 
