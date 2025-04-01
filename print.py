@@ -30,7 +30,7 @@ def sort_books_alphabet(book_list):
     return sorted(book_list,key = lambda i:i['Title'])
 
 def get_completed(book_list):
-    return
+    return [i for i in book_list if i["Complete"]]
 
 #TODO - sort books by completion
 def sort_books_completion(book_list):
@@ -39,4 +39,4 @@ def sort_books_completion(book_list):
 #TODO - Integrate book API?
 
 bl,c = get_book_list("tbr.txt")
-print(sort_books_alphabet(bl))
+#print(get_completed(bl))
