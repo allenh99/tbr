@@ -13,4 +13,6 @@ def display_completed():
     book_list = index()
     p.get_completed(book_list)
 
-#TODO - display by alphabet
+#TODO - display by alphabet 
+
+#TODO - send display in json
