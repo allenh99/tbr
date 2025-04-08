@@ -34,9 +34,10 @@ def get_completed(book_list):
 
 #TODO - sort books by completion
 def sort_books_completion(book_list):
-    return
+    return sorted(book_list,key = lambda i:i["Complete"],reverse=True)
 
 #TODO - Integrate book API?
 
 bl,c = get_book_list("tbr.txt")
+print(sort_books_completion(bl))
 #print(get_completed(bl))
