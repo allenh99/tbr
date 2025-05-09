@@ -23,7 +23,12 @@ import {
 } from '@chakra-ui/react'
 import { Book } from '../types/book'
 
-const BookList = () => {
+interface BookListProps {
+  books: Book[];
+  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+}
+
+const BookList = ({ books, setBooks }: BookListProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
   const [newBook, setNewBook] = useState<Partial<Book>>({
@@ -32,11 +37,6 @@ const BookList = () => {
     status: 'to-read',
     genre: '',
   })
-
-  // This will be replaced with actual data management
-  const [books, setBooks] = useState<Book[]>([
-    
-  ])
 
   const handleAddBook = (e: React.FormEvent) => {
     e.preventDefault()

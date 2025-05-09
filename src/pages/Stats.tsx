@@ -7,14 +7,17 @@ import {
   StatNumber,
   StatHelpText,
 } from '@chakra-ui/react'
-import { ReadingStats } from '../types/book'
+import { ReadingStatsSimple, Book } from '../types/book'
 
-const Stats = () => {
-  // This will be replaced with actual data management
-  const stats: ReadingStats = {
-    totalBooks: 20,
-    booksRead: 5,
-    booksReading: 2,
+interface StatsProps {
+  books: Book[];
+}
+
+const Stats = ({ books }: StatsProps) => {
+  const stats: ReadingStatsSimple = {
+    totalBooks: books.length,
+    booksRead: books.filter(book => book.status === 'read').length,
+    booksReading: books.filter(book => book.status === 'reading').length,
   }
 
   return (

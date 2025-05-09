@@ -12,6 +12,12 @@ export interface Book {
   coverUrl?: string;
 }
 
+export interface ReadingStatsSimple {
+  totalBooks: number;
+  booksRead: number;
+  booksReading: number;
+} 
+
 export interface ReadingStats {
   totalBooks: number;
   booksRead: number;
