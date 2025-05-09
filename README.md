@@ -5,10 +5,8 @@ A personal web application to track your reading progress and statistics. Built 
 ## Features
 
 - Track books you want to read, are currently reading, and have finished
-- Add book details including title, author, genre, and page count
+- Add book details
 - View reading statistics and progress
-- Filter and search through your book collection
-- Responsive design for all devices
 
 ## Getting Started
 
@@ -34,7 +32,5 @@ npm install
 ```bash
 npm run dev
 ```
-
-4. Open your browser and navigate to `http://localhost:5173`
 
 ## Usage
