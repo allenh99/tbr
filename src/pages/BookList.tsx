@@ -20,6 +20,10 @@ import {
   useToast,
   Input,
   Select,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react'
 import { Book } from '../types/book'
 
@@ -74,6 +78,30 @@ const BookList = ({ books, setBooks }: BookListProps) => {
     }))
   }
 
+  const handleStatusChange = (bookId: string, newStatus: Book['status']) => {
+    setBooks(books.map(book => 
+      book.id === bookId 
+        ? { ...book, status: newStatus }
+        : book
+    ))
+    toast({
+      title: 'Status updated',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    })
+  }
+
+  const handleDeleteBook = (bookId: string) => {
+    setBooks(books.filter(book => book.id !== bookId))
+    toast({
+      title: 'Book deleted',
+      status: 'info',
+      duration: 2000,
+      isClosable: true,
+    })
+  }
+
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
       case 'read':
@@ -106,7 +134,35 @@ const BookList = ({ books, setBooks }: BookListProps) => {
             boxShadow="sm"
           >
             <VStack align="stretch" spacing={3}>
-              <Heading size="md">{book.title}</Heading>
+              <HStack justify="space-between">
+                <Heading size="md">{book.title}</Heading>
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    size="sm"
+                    variant="ghost"
+                  >
+                    Options
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem onClick={() => handleStatusChange(book.id, 'to-read')}>
+                      Mark as To Read
+                    </MenuItem>
+                    <MenuItem onClick={() => handleStatusChange(book.id, 'reading')}>
+                      Mark as Reading
+                    </MenuItem>
+                    <MenuItem onClick={() => handleStatusChange(book.id, 'read')}>
+                      Mark as Read
+                    </MenuItem>
+                    <MenuItem 
+                      onClick={() => handleDeleteBook(book.id)}
+                      color="red.500"
+                    >
+                      Delete Book
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </HStack>
               <Text color="gray.600">{book.author}</Text>
               <HStack>
                 <Badge colorScheme={getStatusColor(book.status)}>

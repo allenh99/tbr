@@ -10,23 +10,23 @@ function App() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem("tbrList");
-      console.log('Initial localStorage value:', saved);
+      //console.log('Initial localStorage value:', saved);
       if (saved && saved !== '[]') {  // Only parse if we have actual data
         const parsedBooks = JSON.parse(saved);
-        console.log('Successfully parsed books:', parsedBooks);
+        //console.log('Successfully parsed books:', parsedBooks);
         if (Array.isArray(parsedBooks) && parsedBooks.length > 0) {
           setBooks(parsedBooks);
         }
       }
     } catch (error) {
-      console.error('Error loading books from localStorage:', error);
+      //console.error('Error loading books from localStorage:', error);
     }
   }, []);
 
   useEffect(() => {
     try {
       if (books.length > 0) {  // Only save if we have books
-        console.log('Saving books to localStorage:', books);
+        //console.log('Saving books to localStorage:', books);
         localStorage.setItem("tbrList", JSON.stringify(books));
       }
     } catch (error) {
