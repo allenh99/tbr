@@ -248,7 +248,7 @@ const BookList = ({ books, setBooks }: BookListProps) => {
   return (
     <Box>
       <HStack justify="space-between" mb={6}>
-        <Heading>My Books</Heading>
+        <Heading>Booklist</Heading>
         <HStack>
           <Button colorScheme="green" onClick={handleExport}>
             Export List
@@ -270,20 +270,19 @@ const BookList = ({ books, setBooks }: BookListProps) => {
 
       <VStack spacing={8} align="stretch">
         <Box>
+          <Heading size="md" mb={4}>Non-Fiction</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+            {nonfictionBooks.map(renderBookCard)}
+          </SimpleGrid>
+        </Box>
+        <Divider />
+        <Box>
           <Heading size="md" mb={4}>Fiction</Heading>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
             {fictionBooks.map(renderBookCard)}
           </SimpleGrid>
         </Box>
 
-        <Divider />
-
-        <Box>
-          <Heading size="md" mb={4}>Non-Fiction</Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-            {nonfictionBooks.map(renderBookCard)}
-          </SimpleGrid>
-        </Box>
       </VStack>
 
       <Modal isOpen={isOpen} onClose={onClose}>

@@ -23,7 +23,7 @@ const Stats = ({ books }: StatsProps) => {
   return (
     <Box bg="white" p={4} borderRadius="lg" boxShadow="sm">
       <VStack align="stretch" spacing={4}>
-        <Heading size="md">Progress</Heading>
+        <Heading size="md">2025 Progress</Heading>
 
         <Stat>
           <StatLabel>Books Read</StatLabel>
