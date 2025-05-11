@@ -43,6 +43,70 @@ const BookList = ({ books, setBooks }: BookListProps) => {
     genre: 'fiction',
   })
 
+  const handleExport = () => {
+    const bookListText = books.map(book => 
+      `${book.title},${book.author},${book.genre},${book.status}`
+    ).join('\n')
+    
+    const blob = new Blob([bookListText], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'booklist.txt'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+
+    toast({
+      title: 'Booklist exported',
+      description: 'Your booklist has been saved to booklist.txt',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
+  }
+
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const text = e.target?.result as string
+        const importedBooks = text.split('\n').map(line => {
+          const [title, author, genre, status] = line.split(',')
+          return {
+            id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+            title,
+            author,
+            genre: genre as 'fiction' | 'nonfiction',
+            status: status as Book['status'],
+          }
+        })
+
+        setBooks(prevBooks => [...prevBooks, ...importedBooks])
+        toast({
+          title: 'Books imported',
+          description: `${importedBooks.length} books have been added to your list`,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      } catch (error) {
+        toast({
+          title: 'Import failed',
+          description: 'The file format is invalid',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    }
+    reader.readAsText(file)
+  }
+
   const handleAddBook = (e: React.FormEvent) => {
     e.preventDefault()
     const book: Book = {
@@ -185,9 +249,23 @@ const BookList = ({ books, setBooks }: BookListProps) => {
     <Box>
       <HStack justify="space-between" mb={6}>
         <Heading>My Books</Heading>
-        <Button colorScheme="blue" onClick={onOpen}>
-          Add Book
-        </Button>
+        <HStack>
+          <Button colorScheme="green" onClick={handleExport}>
+            Export List
+          </Button>
+          <Button as="label" colorScheme="blue" variant="outline">
+            Import List
+            <input
+              type="file"
+              accept=".txt"
+              style={{ display: 'none' }}
+              onChange={handleImport}
+            />
+          </Button>
+          <Button colorScheme="blue" onClick={onOpen}>
+            Add Book
+          </Button>
+        </HStack>
       </HStack>
 
       <VStack spacing={8} align="stretch">
