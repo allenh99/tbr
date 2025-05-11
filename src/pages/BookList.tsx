@@ -24,6 +24,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Divider,
 } from '@chakra-ui/react'
 import { Book } from '../types/book'
 
@@ -39,7 +40,7 @@ const BookList = ({ books, setBooks }: BookListProps) => {
     title: '',
     author: '',
     status: 'to-read',
-    genre: '',
+    genre: 'fiction',
   })
 
   const handleAddBook = (e: React.FormEvent) => {
@@ -49,14 +50,14 @@ const BookList = ({ books, setBooks }: BookListProps) => {
       title: newBook.title!,
       author: newBook.author!,
       status: newBook.status as Book['status'],
-      genre: newBook.genre,
+      genre: newBook.genre as 'fiction' | 'nonfiction',
     }
     setBooks([...books, book])
     setNewBook({
       title: '',
       author: '',
       status: 'to-read',
-      genre: '',
+      genre: 'fiction',
     })
     onClose()
     toast({
@@ -115,6 +116,71 @@ const BookList = ({ books, setBooks }: BookListProps) => {
     }
   }
 
+  const renderBookCard = (book: Book) => (
+    <Box
+      key={book.id}
+      bg="white"
+      p={6}
+      borderRadius="lg"
+      boxShadow="sm"
+    >
+      <VStack align="stretch" spacing={3}>
+        <HStack justify="space-between">
+          <Heading size="md">{book.title}</Heading>
+          <Menu>
+            <MenuButton
+              as={Button}
+              size="sm"
+              variant="ghost"
+            >
+              Options
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => handleStatusChange(book.id, 'to-read')}>
+                Mark as To Read
+              </MenuItem>
+              <MenuItem onClick={() => handleStatusChange(book.id, 'reading')}>
+                Mark as Reading
+              </MenuItem>
+              <MenuItem onClick={() => handleStatusChange(book.id, 'read')}>
+                Mark as Read
+              </MenuItem>
+              <MenuItem 
+                onClick={() => handleDeleteBook(book.id)}
+                color="red.500"
+              >
+                Delete Book
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </HStack>
+        <Text color="gray.600">{book.author}</Text>
+        <HStack>
+          <Badge colorScheme={getStatusColor(book.status)}>
+            {book.status === 'to-read' ? 'To Read' :
+             book.status === 'reading' ? 'Reading' : 'Read'}
+          </Badge>
+          <Badge colorScheme={book.genre === 'fiction' ? 'purple' : 'orange'}>
+            {book.genre === 'fiction' ? 'Fiction' : 'Non-Fiction'}
+          </Badge>
+        </HStack>
+        {book.startDate && (
+          <Text fontSize="sm" color="gray.500">
+            Started: {book.startDate}
+          </Text>
+        )}
+        {book.finishDate && (
+          <Text fontSize="sm" color="gray.500">
+            Finished: {book.finishDate}
+          </Text>
+        )}
+      </VStack>
+    </Box>
+  )
+
+  const fictionBooks = books.filter(book => book.genre === 'fiction')
+  const nonfictionBooks = books.filter(book => book.genre === 'nonfiction')
+
   return (
     <Box>
       <HStack justify="space-between" mb={6}>
@@ -124,69 +190,23 @@ const BookList = ({ books, setBooks }: BookListProps) => {
         </Button>
       </HStack>
 
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
-        {books.map((book) => (
-          <Box
-            key={book.id}
-            bg="white"
-            p={6}
-            borderRadius="lg"
-            boxShadow="sm"
-          >
-            <VStack align="stretch" spacing={3}>
-              <HStack justify="space-between">
-                <Heading size="md">{book.title}</Heading>
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    size="sm"
-                    variant="ghost"
-                  >
-                    Options
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem onClick={() => handleStatusChange(book.id, 'to-read')}>
-                      Mark as To Read
-                    </MenuItem>
-                    <MenuItem onClick={() => handleStatusChange(book.id, 'reading')}>
-                      Mark as Reading
-                    </MenuItem>
-                    <MenuItem onClick={() => handleStatusChange(book.id, 'read')}>
-                      Mark as Read
-                    </MenuItem>
-                    <MenuItem 
-                      onClick={() => handleDeleteBook(book.id)}
-                      color="red.500"
-                    >
-                      Delete Book
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              </HStack>
-              <Text color="gray.600">{book.author}</Text>
-              <HStack>
-                <Badge colorScheme={getStatusColor(book.status)}>
-                  {book.status === 'to-read' ? 'To Read' :
-                   book.status === 'reading' ? 'Reading' : 'Read'}
-                </Badge>
-                {book.genre && (
-                  <Badge colorScheme="purple">{book.genre}</Badge>
-                )}
-              </HStack>
-              {book.startDate && (
-                <Text fontSize="sm" color="gray.500">
-                  Started: {book.startDate}
-                </Text>
-              )}
-              {book.finishDate && (
-                <Text fontSize="sm" color="gray.500">
-                  Finished: {book.finishDate}
-                </Text>
-              )}
-            </VStack>
-          </Box>
-        ))}
-      </SimpleGrid>
+      <VStack spacing={8} align="stretch">
+        <Box>
+          <Heading size="md" mb={4}>Fiction</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+            {fictionBooks.map(renderBookCard)}
+          </SimpleGrid>
+        </Box>
+
+        <Divider />
+
+        <Box>
+          <Heading size="md" mb={4}>Non-Fiction</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+            {nonfictionBooks.map(renderBookCard)}
+          </SimpleGrid>
+        </Box>
+      </VStack>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -225,14 +245,12 @@ const BookList = ({ books, setBooks }: BookListProps) => {
                   </Select>
                 </FormControl>
 
-                <FormControl>
+                <FormControl isRequired>
                   <FormLabel>Genre</FormLabel>
-                  <Input
-                    name="genre"
-                    value={newBook.genre}
-                    onChange={handleChange}
-                    placeholder="Enter genre"
-                  />
+                  <Select name="genre" value={newBook.genre} onChange={handleChange}>
+                    <option value="fiction">Fiction</option>
+                    <option value="nonfiction">Non-Fiction</option>
+                  </Select>
                 </FormControl>
 
                 <Button type="submit" colorScheme="blue" width="full">

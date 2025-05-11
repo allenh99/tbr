@@ -4,6 +4,8 @@ import BookList from './pages/BookList'
 import Stats from './pages/Stats'
 import { Book } from './types/book'
 
+
+//TODO: split into fiction and non-fiction sections
 function App() {
   const [books, setBooks] = useState<Book[]>([])
 
