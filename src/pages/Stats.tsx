@@ -6,6 +6,9 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
+  Progress,
+  Text,
+  HStack,
 } from '@chakra-ui/react'
 import { ReadingStatsSimple, Book } from '../types/book'
 
@@ -20,10 +23,27 @@ const Stats = ({ books }: StatsProps) => {
     booksReading: books.filter(book => book.status === 'reading').length,
   }
 
+  const progressPercentage = stats.totalBooks > 0 
+    ? (stats.booksRead / stats.totalBooks) * 100 
+    : 0
+
   return (
     <Box bg="white" p={4} borderRadius="lg" boxShadow="sm">
       <VStack align="stretch" spacing={4}>
         <Heading size="md">2025 Progress</Heading>
+
+        <Box>
+          <HStack justify="space-between" mb={2}>
+            <Text fontSize="sm" color="gray.600">Reading Progress</Text>
+            <Text fontSize="sm" color="gray.600">{Math.round(progressPercentage)}%</Text>
+          </HStack>
+          <Progress 
+            value={progressPercentage} 
+            colorScheme="blue" 
+            size="lg" 
+            borderRadius="full"
+          />
+        </Box>
 
         <Stat>
           <StatLabel>Books Read</StatLabel>
