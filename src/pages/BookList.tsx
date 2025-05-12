@@ -253,7 +253,7 @@ const BookList = ({ books, setBooks }: BookListProps) => {
           <Button colorScheme="green" onClick={handleExport}>
             Export List
           </Button>
-          <Button as="label" colorScheme="blue" variant="outline">
+          <Button as="label" colorScheme="purple">
             Import List
             <input
               type="file"

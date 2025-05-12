@@ -27,10 +27,11 @@ const Stats = ({ books }: StatsProps) => {
     ? (stats.booksRead / stats.totalBooks) * 100 
     : 0
 
+  // var dateVariable = new Date()
   return (
     <Box bg="white" p={4} borderRadius="lg" boxShadow="sm">
       <VStack align="stretch" spacing={4}>
-        <Heading size="md">2025 Progress</Heading>
+        <Heading size="md">{(new Date().getFullYear())} Progress</Heading>
 
         <Box>
           <HStack justify="space-between" mb={2}>
@@ -48,7 +49,7 @@ const Stats = ({ books }: StatsProps) => {
         <Stat>
           <StatLabel>Books Read</StatLabel>
           <StatNumber>{stats.booksRead}</StatNumber>
-          <StatHelpText>of {stats.totalBooks} total</StatHelpText>
+          <StatHelpText>out of {stats.totalBooks} total</StatHelpText>
         </Stat>
 
         <Stat>
