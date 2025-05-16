@@ -1,4 +1,4 @@
-# TBR
+<h1 align="center">TBR</h1>
 
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/allenh99/tbr?style=flat-square" />
@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/license/allenh99/tbr?style=flat-square" />
 </p>
 
-<p>
+<p align="center">
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/>
 <img src="https://img.shields.io/badge/Chakra%20UI-319795?style=for-the-badge&logo=chakra-ui&logoColor=white"/>
