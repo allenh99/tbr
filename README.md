@@ -57,7 +57,7 @@ A modern web application for book enthusiasts to track their reading journey. Bu
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/allenh99/tbr.git
 cd tbr
 ```
 
