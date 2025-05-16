@@ -4,7 +4,6 @@
 <img src="https://img.shields.io/github/last-commit/allenh99/tbr?style=flat-square" />
 <img src="https://img.shields.io/github/languages/top/allenh99/tbr?style=flat-square" />
 <img src="https://img.shields.io/github/languages/count/allenh99/tbr?style=flat-square" />
-<img src="https://img.shields.io/github/license/allenh99/tbr?style=flat-square" />
 </p>
 
 <p align="center">
@@ -15,9 +14,15 @@
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
 </p>
 
-A modern web application for book enthusiasts to track their reading journey. Built with React, TypeScript, and Chakra UI, TBR Tracker helps you manage your reading list, track progress, and analyze your reading habits.
 
-![TBR Tracker Screenshot](screenshot.png)
+
+
+A modern web application for book enthusiasts to track their reading journey. Built with React, TypeScript, and Chakra UI, this TBR list helps you manage your reading list, track progress, and analyze your reading habits.
+
+<p align="center">
+<img src="public/screenshots/tbr1.png"/>
+<img src="public/screenshots/tbr2.png"/>
+</p>
 
 ## 🌟 Features
 
